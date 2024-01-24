@@ -26,7 +26,7 @@ This repository, `lox_interpreter`, showcases my journey in implementing an inte
 ## Usage
 To run a Lox program, execute the following command:
 ```bash
-cargo run -- [path_to_your_lox_program.lox]
+cargo run [path_to_your_lox_program.lox]
 ```
 Replace `[path_to_your_lox_program.lox]` with the path to your Lox file.
 
