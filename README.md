@@ -3,7 +3,7 @@
 
 ## About the Project
 This repository, `lox_interpreter`, showcases my journey in implementing an interpreter for the Lox programming language, done in Rust. As a novice Rust programmer, this project serves as both a learning experience and a demonstration of Rust's capabilities. The goal is to create a functional and efficient interpreter for Lox, a language known for its simplicity.
-
+I'm doing that with the help of the [Crafting Interpreters](https://craftinginterpreters.com) book.
 ## Getting Started
 
 ### Prerequisites
