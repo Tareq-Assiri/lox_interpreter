@@ -30,7 +30,8 @@ pub enum TokenType {
     // Literals.
     IDENTIFIER,
     STRING,
-    NUMBER,
+    NUMBER(u32),
+    FLOAT(f32),
 
     // Keywords.
     AND,
@@ -51,6 +52,7 @@ pub enum TokenType {
     WHILE,
 
     EOF,
+    ERR,
 }
 #[derive(Debug, Clone)]
 #[allow(dead_code)]
@@ -344,21 +346,33 @@ fn peek_next(scanner: &Scanner) -> char {
         .unwrap_or('\0')
 }
 fn number(scanner: &mut Scanner) {
+    let mut token_type = 'u';
     while peek(scanner).is_digit(10) {
         advance(scanner);
     }
     if peek(scanner).eq(&'.') && peek_next(scanner).is_digit(10) {
+        advance(scanner);
         while peek(scanner).is_digit(10) {
+            println!("found float here nig");
+            token_type = 'f';
             advance(scanner);
         }
     }
+
+    let number = scanner.source.substring(scanner.start, scanner.current);
+    let token = match token_type {
+        'u' => TokenType::NUMBER(number.parse::<u32>().unwrap()),
+        'f' => TokenType::FLOAT(number.parse::<f32>().unwrap()),
+        _ => {
+            eprintln!("you missed up.");
+            TokenType::ERR
+        }
+    };
+
     add_token(
         Token {
-            token_type: TokenType::NUMBER,
-            lexeme: scanner
-                .source
-                .substring(scanner.start, scanner.current)
-                .to_string(),
+            token_type: token,
+            lexeme: number.to_string(),
             line: scanner.line,
         },
         scanner,
